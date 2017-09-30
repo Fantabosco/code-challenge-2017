@@ -3,4 +3,11 @@
   <groupId>code-challenge-2017</groupId>
   <artifactId>code-challenge-2017</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.jgrapht</groupId>
+  		<artifactId>jgrapht-core</artifactId>
+  		<version>1.0.1</version>
+  	</dependency>
+  </dependencies>
 </project>
