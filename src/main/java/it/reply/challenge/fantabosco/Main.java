@@ -25,7 +25,7 @@ public class Main {
 	private static long totalDuration;
 
 	public static void main(String[] args) {
-		readFile(FILE_EXAMPLE);
+		readFile(FILE_1);
 
 		// TODO algoritmo
 		
@@ -61,6 +61,7 @@ public class Main {
 				e.setStartTime(Long.parseLong(splittedLine[1]));
 				e.setEndTime(Long.parseLong(splittedLine[2]));
 				e.setPartecipants(Integer.parseInt(splittedLine[3]));
+				e.setWeight((e.getEndTime() - e.getStartTime()) * e.getPartecipants());
 				events.add(e);
 				
 				// Aggiornamento min e max time
