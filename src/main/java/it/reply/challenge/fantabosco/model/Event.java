@@ -1,29 +1,29 @@
 package it.reply.challenge.fantabosco.model;
 
-import java.util.Date;
 
 public class Event {
 	
 	String topic;
-	Date startTime;
-	Date endTime;
+	long startTime;
+	long endTime;
 	int partecipants;
+	
 	public String getTopic() {
 		return topic;
 	}
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
-	public Date getStartTime() {
+	public long getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndTime() {
+	public long getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(long endTime) {
 		this.endTime = endTime;
 	}
 	public int getPartecipants() {
