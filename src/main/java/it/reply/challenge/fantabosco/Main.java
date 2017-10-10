@@ -4,17 +4,20 @@ import it.reply.challenge.fantabosco.model.Event;
 import it.reply.challenge.fantabosco.model.Room;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-	private static String FILE_1 = "data_50000_10.in";
-	private static String FILE_2 = "data_50000_100.in";
-	private static String FILE_3 = "data_5000_3.in";
-	private static String FILE_4 = "data_5000_10.in";
+	private static String FILE_1 = "data_5000_3.in";
+	private static String FILE_2 = "data_5000_10.in";
+	private static String FILE_3 = "data_50000_10.in";
+	private static String FILE_4 = "data_50000_100.in";
 
+	private static String inputFile;
 	private static List<Event> events;
 	private static List<Room> rooms;
 
@@ -22,14 +25,17 @@ public class Main {
 		readFile(FILE_1);
 
 		// TODO algoritmo
-
+		rooms.get(0).setEvents(events);
+		
+		writeSolution();
 	}
 
 	private static void readFile(String fileName) {
 		BufferedReader bufferedReader = null;
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader("src/main/resources/" + fileName);
+			inputFile = "src/main/resources/" + fileName;
+			fileReader = new FileReader(inputFile);
 			bufferedReader = new BufferedReader(fileReader);
 			String currentLine = bufferedReader.readLine();
 			String[] firstLine = currentLine.split(" ");
@@ -62,9 +68,54 @@ public class Main {
 				rooms.add(r);
 			}
 			
-			System.out.println("Loaded:" + numRooms + " rooms, "+ numEvents + " events");
+			System.out.println("Loaded: " + numRooms + " rooms, "+ numEvents + " events");
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				fileReader.close();
+				bufferedReader.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void writeSolution() {
+		BufferedWriter bufferedWriter = null;
+		FileWriter fileWriter = null;
+		try {
+			String outputFile = inputFile.replace(".in", ".out");
+			fileWriter = new FileWriter(outputFile);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(Room r: rooms) {
+				StringBuilder solution = new StringBuilder();
+				solution.append(r.getName());
+				solution.append(":");
+				if(r.getEvents() != null) {
+					for(Event e: r.getEvents()) {
+						// Check consistency
+						if(e.getPartecipants() > r.getCapacity()) {
+							throw new RuntimeException("Partecipati > capacità");
+						}
+						solution.append(e.getTopic());
+						solution.append(" ");
+					}
+				}
+				bufferedWriter.append(solution);
+				bufferedWriter.append("\r\n");
+			}
+			System.out.println("Soluzion wrote to: " + outputFile);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bufferedWriter.close();
+				fileWriter.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
