@@ -44,16 +44,67 @@ public class Utils {
 	}
 	
 	/**
-	 * @return la stanza con capacità minore in grado di ospitare l'evento
+	 * @return true if event "e1" is at the same time with event "e2"
 	 */
+	public static boolean checkCollision(Event e, Room r) {
+		for (Event evento : r.getEvents()){
+			if (checkCollision(evento, e)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * @return true if event "e1" is at the same time with event "e2"
+	 */
+	public static boolean checkCollision(Event e,List<Room> r) {
+		for (Room stanza:r){
+			if (checkCollision(e, stanza)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static Room getRoomWithMinCapacityPerEvent(Event e, List<Room> rooms) {
 		Room room = null;
 		for (Room r : rooms) {
-			if (e.getPartecipants() <= r.getCapacity()) {
+			if (e.getPartecipants() <= r.getCapacity() && r.getCapacity() != 0) {
 				if (room == null || r.getCapacity() < room.getCapacity()) {
-					room = r;
+					if (checkEvent(e, r)) {
+						room = r;
+					}
 				}
 			}
+		}
+		return room;
+	}
+
+	public static Room getRoomWithCloserEvent(Event e, List<Room> rooms) {
+		Room room = null;
+		int min = 9999999;
+		for (Room r : rooms) {
+			if(!Utils.checkEvent(e, r)) {
+				continue;
+			}
+			for(Event ev : r.getEvents()) {
+				int tmp;
+				if(!Utils.checkCollision(e, ev)) {
+					if(e.getStartTime()<ev.getStartTime()) {
+						tmp = (int) (ev.getStartTime() - e.getEndTime());
+					} else {
+						tmp = (int) (e.getStartTime() - ev.getEndTime());
+					}
+					if(tmp/e.getPartecipants() < min) {
+						min = (int) (tmp/e.getPartecipants());
+						room =r;
+					}
+				}
+			}
+		}
+		if(room == null){
+			return getRoomWithMinCapacityPerEvent(e, rooms);
 		}
 		return room;
 	}

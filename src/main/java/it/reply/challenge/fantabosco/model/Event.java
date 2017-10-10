@@ -32,13 +32,8 @@ public class Event implements Comparable<Event> {
 	}
 	public void setPartecipants(int partecipants) {
 		this.partecipants = partecipants;
-	}	
-	public long getWeight() {
-		return weight;
 	}
-	public void setWeight(long weight) {
-		this.weight = weight;
-	}
+	
 	@Override
 	public String toString() {
 		return this.topic + " (" + this.partecipants + ") " + startTime + " -> " + endTime;
@@ -49,10 +44,22 @@ public class Event implements Comparable<Event> {
 		return (int) (o.startTime - this.startTime);
 	}
 	
+	public int getPoints() {
+		return (int) (this.endTime - this.startTime)*partecipants;
+	}
+
 	public boolean equals(Object o) {
-		if(o instanceof Event) {
+		if(!(o instanceof Event)) {
 			return false;
 		}
 		return ((Event)o).getTopic().equals(this.getTopic());
 	}
+	public long getWeight() {
+		return weight;
+	}
+	public void setWeight(long weight) {
+		this.weight = weight;
+	}
+
+	
 }
