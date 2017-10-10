@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Main {
 
+	private static String FILE_EXAMPLE = "data_8_3.in";
 	private static String FILE_1 = "data_5000_3.in";
 	private static String FILE_2 = "data_5000_10.in";
 	private static String FILE_3 = "data_50000_10.in";
@@ -20,9 +21,11 @@ public class Main {
 	private static String inputFile;
 	private static List<Event> events;
 	private static List<Room> rooms;
+	
+	private static long totalDuration;
 
 	public static void main(String[] args) {
-		readFile(FILE_1);
+		readFile(FILE_EXAMPLE);
 
 		// TODO algoritmo
 		
@@ -46,6 +49,9 @@ public class Main {
 			events = new ArrayList<Event>();
 			rooms = new ArrayList<Room>();
 			
+			long minTime = Long.MAX_VALUE;
+			long maxTime = Long.MIN_VALUE;
+			
 			// Es.: student-tech-clash 1494061200 1494068400 5
 			for (int i = 0; i<numEvents; i++) {
 				currentLine = bufferedReader.readLine();
@@ -56,7 +62,18 @@ public class Main {
 				e.setEndTime(Long.parseLong(splittedLine[2]));
 				e.setPartecipants(Integer.parseInt(splittedLine[3]));
 				events.add(e);
+				
+				// Aggiornamento min e max time
+				if (e.getStartTime() < minTime) {
+					minTime = e.getStartTime();
+				}
+				if (e.getEndTime() > maxTime) {
+					maxTime = e.getEndTime();
+				}
 			}
+			
+			totalDuration = maxTime - minTime;
+			System.out.println("Durata totale = " + totalDuration);
 			
 			//Es.: solar 80
 			for (int i = 0; i<numRooms; i++) {
