@@ -12,6 +12,9 @@ public class Utils {
 	 * @return true if room "r" can host event "e"
 	 */
 	public static boolean checkEvent(Event e1, Room r) {
+		if(e1.getPartecipants() > r.getCapacity()) {
+			return false;
+		}
 		if(r.getEvents() != null) {
 			for(Event e2: r.getEvents()) {
 				if(checkCollision(e1, e2)) {
