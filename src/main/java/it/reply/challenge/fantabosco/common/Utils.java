@@ -1,5 +1,7 @@
 package it.reply.challenge.fantabosco.common;
 
+import java.util.List;
+
 import it.reply.challenge.fantabosco.model.Event;
 import it.reply.challenge.fantabosco.model.Room;
 
@@ -40,4 +42,20 @@ public class Utils {
 			return e2.getEndTime() > e1.getStartTime();
 		}
 	}
+	
+	/**
+	 * @return la stanza con capacità minore in grado di ospitare l'evento
+	 */
+	public static Room getRoomWithMinCapacityPerEvent(Event e, List<Room> rooms) {
+		Room room = null;
+		for (Room r : rooms) {
+			if (e.getPartecipants() <= r.getCapacity()) {
+				if (room == null || r.getCapacity() < room.getCapacity()) {
+					room = r;
+				}
+			}
+		}
+		return room;
+	}
+	
 }
