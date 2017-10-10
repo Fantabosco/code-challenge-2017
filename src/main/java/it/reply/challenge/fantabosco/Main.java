@@ -25,8 +25,8 @@ public class Main {
 		readFile(FILE_1);
 
 		// TODO algoritmo
-		rooms.get(0).setEvents(events);
 		
+		evaluateSolution();
 		writeSolution();
 	}
 
@@ -117,5 +117,18 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private static void evaluateSolution(){
+		long value = 0;
+		for(Room r : rooms) {
+			if(r.getEvents() == null) {
+				continue;
+			}
+			for(Event e : r.getEvents()) {
+				value = e.getPartecipants() * (e.getEndTime() - e.getStartTime()) / r.getCapacity();
+			}
+		}
+		System.out.println("Score: " + value);
 	}
 }

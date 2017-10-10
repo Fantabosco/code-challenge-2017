@@ -1,7 +1,7 @@
 package it.reply.challenge.fantabosco.model;
 
 
-public class Event {
+public class Event implements Comparable<Event> {
 	
 	String topic;
 	long startTime;
@@ -37,5 +37,16 @@ public class Event {
 	public String toString() {
 		return this.topic + " (" + this.partecipants + ") " + startTime + " -> " + endTime;
 	}
-
+	
+	@Override
+	public int compareTo(Event o) {
+		return (int) (o.startTime - this.startTime);
+	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof Event) {
+			return false;
+		}
+		return ((Event)o).getTopic().equals(this.getTopic());
+	}
 }
