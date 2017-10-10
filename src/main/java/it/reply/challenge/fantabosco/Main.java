@@ -2,6 +2,7 @@ package it.reply.challenge.fantabosco;
 
 import it.reply.challenge.fantabosco.model.Event;
 import it.reply.challenge.fantabosco.model.Room;
+import it.reply.challenge.fantabosco.solutions.Solution1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +28,7 @@ public class Main {
 	public static void main(String[] args) {
 		readFile(FILE_1);
 
-		// TODO algoritmo
+		rooms = Solution1.solve(events, rooms, totalDuration);
 		
 		evaluateSolution();
 		writeSolution();
