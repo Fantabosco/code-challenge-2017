@@ -7,7 +7,7 @@ public class Event implements Comparable<Event> {
 	long startTime;
 	long endTime;
 	int partecipants;
-	float weight;
+	long weight;
 	
 	public String getTopic() {
 		return topic;
@@ -33,10 +33,10 @@ public class Event implements Comparable<Event> {
 	public void setPartecipants(int partecipants) {
 		this.partecipants = partecipants;
 	}	
-	public float getWeight() {
+	public long getWeight() {
 		return weight;
 	}
-	public void setWeight(float weight) {
+	public void setWeight(long weight) {
 		this.weight = weight;
 	}
 	@Override

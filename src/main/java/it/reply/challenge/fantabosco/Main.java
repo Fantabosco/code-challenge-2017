@@ -1,15 +1,15 @@
 package it.reply.challenge.fantabosco;
 
-import it.reply.challenge.fantabosco.model.Event;
-import it.reply.challenge.fantabosco.model.Room;
-import it.reply.challenge.fantabosco.solutions.Solution1;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import it.reply.challenge.fantabosco.model.Event;
+import it.reply.challenge.fantabosco.model.Room;
+import it.reply.challenge.fantabosco.solutions.Solution2;
 
 public class Main {
 
@@ -26,9 +26,9 @@ public class Main {
 	private static long totalDuration;
 
 	public static void main(String[] args) {
-		readFile(FILE_1);
+		readFile(FILE_4);
 
-		rooms = Solution1.solve(events, rooms, totalDuration);
+		rooms = Solution2.solve(events, rooms, totalDuration);
 		
 		evaluateSolution();
 		writeSolution();
