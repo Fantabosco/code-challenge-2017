@@ -33,6 +33,9 @@ public class Event {
 		this.partecipants = partecipants;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.topic + " (" + this.partecipants + ") " + startTime + " -> " + endTime;
+	}
 
 }

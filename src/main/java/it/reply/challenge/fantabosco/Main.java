@@ -29,7 +29,7 @@ public class Main {
 		BufferedReader bufferedReader = null;
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader(fileName);
+			fileReader = new FileReader("src/main/resources/" + fileName);
 			bufferedReader = new BufferedReader(fileReader);
 			String currentLine = bufferedReader.readLine();
 			String[] firstLine = currentLine.split(" ");
@@ -40,19 +40,29 @@ public class Main {
 			events = new ArrayList<Event>();
 			rooms = new ArrayList<Room>();
 			
+			// Es.: student-tech-clash 1494061200 1494068400 5
 			for (int i = 0; i<numEvents; i++) {
+				currentLine = bufferedReader.readLine();
 				String[] splittedLine = currentLine.split(" ");
 				Event e = new Event();
-				//TODO mapping
+				e.setTopic(splittedLine[0]);
+				e.setStartTime(Long.parseLong(splittedLine[1]));
+				e.setEndTime(Long.parseLong(splittedLine[2]));
+				e.setPartecipants(Integer.parseInt(splittedLine[3]));
 				events.add(e);
 			}
 			
+			//Es.: solar 80
 			for (int i = 0; i<numRooms; i++) {
+				currentLine = bufferedReader.readLine();
 				String[] splittedLine = currentLine.split(" ");
-				Room e = new Room();
-				//TODO mapping
-				rooms.add(e);
+				Room r = new Room();
+				r.setName(splittedLine[0]);
+				r.setCapacity(Integer.parseInt(splittedLine[1]));
+				rooms.add(r);
 			}
+			
+			System.out.println("Loaded:" + numRooms + " rooms, "+ numEvents + " events");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
